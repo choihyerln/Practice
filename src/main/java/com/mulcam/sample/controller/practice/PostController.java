@@ -1,4 +1,4 @@
-package com.mulcam.sample.controller;
+package com.mulcam.sample.controller.practice;
 
 import java.util.Map;
 

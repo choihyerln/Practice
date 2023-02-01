@@ -59,5 +59,5 @@ public class ChallengeController {
 		model.addAttribute("challenge", nameList);
 		return "challenge/confirm";
 	}
-	
+
 }

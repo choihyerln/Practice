@@ -15,6 +15,5 @@ public interface ChallengeDao {
 	
 	@Select("select * from challenge where cid=#{cid}")
 	public Challenge getChallenge(int cid);
-
 	
 }

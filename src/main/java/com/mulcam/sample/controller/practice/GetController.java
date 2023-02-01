@@ -1,4 +1,4 @@
-package com.mulcam.sample.controller;
+package com.mulcam.sample.controller.practice;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
