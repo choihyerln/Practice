@@ -1,25 +1,22 @@
 package com.mulcam.sample.entity;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter @Getter
 @ToString
-public class CSuccess {
-
-	private int sid;
-	private LocalDateTime sucDate;
-	private int cid;
-	private String uid;
-	private int sumToday;
-	private String startDate;
-	
+@Builder
+public class Cal {
+	int sumToday;
+	int sumWeek;
+	int sumMonth;
+	int mateToday;
+	int mateWeek;
+	int mateMonth;
 }

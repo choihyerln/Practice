@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mulcam.sample.entity.CSuccess;
 import com.mulcam.sample.service.CSuccessService;
@@ -32,7 +31,7 @@ public class CSuccessController {
 	}
 	
 	@PostMapping("/test")
-	public String success(CSuccess cs) {
+	public String push(CSuccess cs) {
 		System.out.println(cs);
 		css.insert(cs);
 		return "redirect:/challenge/list";

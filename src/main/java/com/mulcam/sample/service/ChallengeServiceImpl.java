@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mulcam.sample.dao.CSuccessDao;
 import com.mulcam.sample.dao.ChallengeDao;
+import com.mulcam.sample.entity.CSuccess;
 import com.mulcam.sample.entity.Challenge;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
 	
 	@Autowired private ChallengeDao challengeDao;
+	@Autowired private CSuccessDao csd;
+	
 	
 	@Override
 	public List<Challenge> getChallengeList() {
@@ -22,6 +26,15 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public Challenge getChallenge(int cid) {
 		Challenge list = challengeDao.getChallenge(cid);
 		return list;
+	}
+	@Override
+	public void insert(CSuccess c) {
+		challengeDao.insert(c);
+	}
+	@Override
+	public CSuccess getSum() {
+		CSuccess cs = csd.getSum();
+		return cs;
 	}
 
 }

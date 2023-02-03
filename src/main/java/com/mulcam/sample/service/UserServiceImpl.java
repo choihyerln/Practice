@@ -15,12 +15,11 @@ import com.mulcam.sample.session.UserSession;
 @Service
 public class UserServiceImpl implements UserService {
 	
+	@Autowired private UserDao userDao;
+	
 	@Resource
 	private UserSession userSession;
 
-	@Autowired
-	private UserDao userDao;
-	
 	@Override
 	public List<User> getList() {
 		List<User> list = userDao.getList();

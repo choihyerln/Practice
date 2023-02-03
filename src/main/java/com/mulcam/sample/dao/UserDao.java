@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.mulcam.demo.entity.User;
+import com.mulcam.sample.entity.User;
 
 @Mapper
 public interface UserDao {

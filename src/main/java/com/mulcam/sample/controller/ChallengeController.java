@@ -1,6 +1,5 @@
 package com.mulcam.sample.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mulcam.sample.entity.CSuccess;
 import com.mulcam.sample.entity.Challenge;
+import com.mulcam.sample.service.CSuccessService;
 import com.mulcam.sample.service.ChallengeService;
 
 @Controller
@@ -18,17 +19,18 @@ import com.mulcam.sample.service.ChallengeService;
 public class ChallengeController {
 	
 	@Autowired private ChallengeService cs;
+	@Autowired private CSuccessService css;
 	
 	
-	@RequestMapping("/choice2")
-	public String challenge(Model model) {
-		List<String> list = new ArrayList<>();
-		list.add("대중교통 이용하기");
-		list.add("배달 대신 집밥 먹기");
-		list.add("커피값 줄이기");
-		model.addAttribute("challenge", list);
-		return "challenge/choice2";
-	}
+//	@RequestMapping("/choice2")
+//	public String challenge(Model model) {
+//		List<String> list = new ArrayList<>();
+//		list.add("대중교통 이용하기");
+//		list.add("배달 대신 집밥 먹기");
+//		list.add("커피값 줄이기");
+//		model.addAttribute("challenge", list);
+//		return "challenge/choice2";
+//	}
 	
 	@GetMapping("/choice")
 	public String listForm(Model model) {
@@ -53,11 +55,14 @@ public class ChallengeController {
 		return "challenge/confirm";
 	}
 	
-	@GetMapping("/tmp/{cid}")
-	public String nameList2(Model model) {
-		List<Challenge> nameList = cs.getChallengeList();
-		model.addAttribute("challenge", nameList);
-		return "challenge/confirm";
+	@GetMapping("/save/{cid}")
+	public String mptest(@PathVariable int cid) {
+		CSuccess cs = new CSuccess();
+		cs.setUid("admin");
+		System.out.println(cid);
+		cs.setCid(cid);
+		css.insert(cs);
+		return "redirect:/myPage";
 	}
-
+	
 }

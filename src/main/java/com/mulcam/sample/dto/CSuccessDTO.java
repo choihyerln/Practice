@@ -1,4 +1,4 @@
-package com.mulcam.sample.entity;
+package com.mulcam.sample.dto;
 
 import java.time.LocalDateTime;
 
@@ -13,13 +13,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CSuccess {
-
-	private int sid;
+public class CSuccessDTO {
+	
+	private Integer sid;
 	private LocalDateTime sucDate;
-	private int cid;
+	private Integer cid;
 	private String uid;
-	private int sumToday;
-	private String startDate;
+	private Integer sumToday;
+	private Integer sumWeek;
+	private Integer sumMonth;
 	
 }

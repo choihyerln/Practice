@@ -36,7 +36,7 @@
        	</div>
 		<br>
 		<button class="btn btn-gray choice" type="submit"
-			onclick="location.href='/tmp/${c.cid}'">네, 성공했어요! ☺︎</button>
+			onclick="location.href='/challenge/save/${c.cid}'">네, 성공했어요! ☺︎</button>
 		<button class="btn btn-gray choice"
 			onclick="location.href='/challenge/choice'">챌린지 다시 선택하기</button>
 		<button class="btn btn-gray choice"
