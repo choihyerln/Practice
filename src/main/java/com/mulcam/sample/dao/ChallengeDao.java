@@ -21,13 +21,4 @@ public interface ChallengeDao {
 	@Insert("insert into cSuccess values(#{cid})")
 	void insert(CSuccess c);
 	
-	@Select("SELECT SUM(camount) sumToday"
-			+ "FROM cSuccess s"
-			+ "JOIN challenge c"
-			+ "ON c.cid = s.cid"
-			+ "WHERE CAST(s.sucDate AS DATE) = CURDATE()"
-			+ "GROUP BY s.uid"
-			+ "HAVING uid = 'admin'")
-	public CSuccess getSum();
-	
 }

@@ -1,4 +1,4 @@
-package com.mulcam.sample.entity;
+package com.mulcam.sample.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +12,11 @@ import lombok.ToString;
 @Setter @Getter
 @ToString
 @Builder
-public class Cal {
-	int sumToday;
-	int sumWeek;
-	int sumMonth;
-	int mateToday;
-	int mateWeek;
-	int mateMonth;
+public class MypageSumDTO {
+	private int challengeToday;
+	private int challengeWeek;
+	private int challengeMonth;
+	private int mateToday;
+	private int mateWeek;
+	private int mateMonth;
 }

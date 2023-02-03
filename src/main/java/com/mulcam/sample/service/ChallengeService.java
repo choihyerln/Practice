@@ -13,5 +13,4 @@ public interface ChallengeService {
 	
 	void insert (CSuccess c);
 	
-	CSuccess getSum();
 }

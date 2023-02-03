@@ -19,7 +19,5 @@ public class CSuccess {
 	private LocalDateTime sucDate;
 	private int cid;
 	private String uid;
-	private int sumToday;
-	private String startDate;
 	
 }

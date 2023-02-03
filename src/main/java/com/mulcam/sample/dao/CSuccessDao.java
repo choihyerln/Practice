@@ -26,22 +26,22 @@ public interface CSuccessDao {
 			+ "HAVING uid = #{uid}")
 	public int getTodaySum(String uid);
 	
-	@Select("SELECT SUM(camount) AS sumWeek, DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 WEEK), \"%Y-%m-%d\") AS startDate "
+	@Select("SELECT SUM(camount) AS sumWeek "
 			+ "FROM cSuccess AS s "
 			+ "JOIN challenge AS c "
 			+ "ON c.cid = s.cid "
 			+ "WHERE CAST(s.sucDate AS DATE) BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() "
 			+ "and uid = #{uid}")
-	public int getWeekSum(String uid, String startDate);
+	public int getWeekSum(String uid);
 	
 	
-	@Select("SELECT SUM(camount) AS sumMonth, DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH), \"%Y-%m-%d\") AS startDate "
+	@Select("SELECT SUM(camount) AS sumMonth "
 			+ "FROM cSuccess AS s "
 			+ "JOIN challenge AS c "
 			+ "ON c.cid = s.cid "
 			+ "WHERE CAST(s.sucDate AS DATE) BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW() "
 			+ "and uid = #{uid}")
-	public int getMonthSum(String uid, String startDate);
+	public int getMonthSum(String uid);
 	
 }
  

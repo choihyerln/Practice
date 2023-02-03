@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mulcam.sample.entity.ChallengeSum;
+import com.mulcam.sample.dto.MypageSumDTO;
 import com.mulcam.sample.service.CSuccessService;
 
 @Controller
@@ -22,10 +22,9 @@ public class TestController {
 
 	@PostMapping("/myPage")
 	@ResponseBody
-	public ChallengeSum get(Model model, int ver) {
-		ChallengeSum cs = css.getSum("admin", ver);
-		model.addAttribute("data", cs);
-		return cs;
+	public MypageSumDTO get(Model model) {
+		MypageSumDTO mypageSumDTO = css.getSum("admin");
+		return mypageSumDTO;
 	}
 
 }
