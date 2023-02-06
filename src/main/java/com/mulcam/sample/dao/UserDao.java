@@ -22,10 +22,10 @@ public interface UserDao {
 	@Insert("insert into users values(#{uid}, #{pwd}, #{uname}, #{email}, default, default)")
 	void insert(User u);
 	
-	@Update("update users set uname=#{uname}, email=#{email} where uid=#{uid}")
+	@Update("UPDATE users SET pwd = #{pwd}, uname = #{uname}, email = #{email} WHERE uid = #{uid};")
 	void update(User u);
 	
-	@Delete("delete from users where uid=#{uid}")
+	@Delete("delete from users where uid=#{uid};")
 	void delete(String uid);
 	
 }

@@ -1,7 +1,5 @@
 package com.mulcam.sample.service;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -19,12 +17,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Resource
 	private UserSession userSession;
-
-	@Override
-	public List<User> getList() {
-		List<User> list = userDao.getList();
-		return list;
-	}
 
 	@Override
 	public User get(String uid) {
@@ -48,20 +40,20 @@ public class UserServiceImpl implements UserService {
 	public void delete(String uid) {
 		userDao.delete(uid);
 	}
-
+	
+	/** 로그인 */
 	@Override
 	public int login(String uid, String pwd) {
 		User u = userDao.get(uid);
 		if (u.getUid() != null) {		// uid 가 존재
 			if (BCrypt.checkpw(pwd, u.getPwd())) {
-				// System.out.println(u.getUid() + ", " + u.getUname());
 				userSession.setUid(u.getUid());
 				userSession.setUname(u.getUname());
 				return UserService.CORRECT_LOGIN;
 			} else {
 				return UserService.WRONG_PASSWORD;
 			}
-		} 		// UID 가 없음
+		} 		// uid 가 없음
 		return UserService.UID_NOT_EXIST;
 	}
 }

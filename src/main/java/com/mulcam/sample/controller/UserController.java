@@ -1,7 +1,5 @@
 package com.mulcam.sample.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,20 +24,11 @@ public class UserController {
 	private UserSession userSession;
 
 	@Autowired
-	private UserService service;
-	
-	@RequestMapping("/list") 
-	public String list(Model model) {
-		List<User> list = service.getList();
-		model.addAttribute("userList", list);
-		model.addAttribute("sessionUid", userSession.getUid());
-		model.addAttribute("sessionUname", userSession.getUname());
-		return "user/list";
-	}
+	private UserService userService;
 	
 	@RequestMapping("/detail/{uid}")
 	public String detail(@PathVariable String uid, Model model) {
-		User user = service.get(uid);
+		User user = userService.get(uid);
 		System.out.println(user);
 		model.addAttribute("user", user);
 		return "redirect:/user/list";
@@ -60,30 +49,30 @@ public class UserController {
 		
 		if (pwd.equals(pwd2)) {
 			User u = new User(uid, pwd, uname, email);
-			service.register(u);
-			return "redirect:/user/list";
+			userService.register(u);
+			return "redirect:/user/login";
 		} else {
 			System.out.println("패스워드 입력이 잘못되었습니다.");
-			return "redirect:/user/list";
+			return "redirect:/user/register";
 		}
 	}
 	
 	@GetMapping("/update/{uid}")
 	public String updateForm(@PathVariable String uid, Model model) {
-		User user = service.get(uid);
+		User user = userService.get(uid);
 		model.addAttribute("user", user);
 		return "user/update";
 	}
 	
-	@PostMapping("/update")
-	public String update(HttpServletRequest req) {
-		String uid = req.getParameter("uid").strip();
-		String uname = req.getParameter("uname").strip();
-		String email = req.getParameter("email").strip();
-		User user = new User(uid, uname, email);
-		service.update(user);
-		return "redirect:/user/list";
-	}
+//	@PostMapping("/update")
+//	public String update(HttpServletRequest req) {
+//		String uid = req.getParameter("uid").strip();
+//		String uname = req.getParameter("uname").strip();
+//		String email = req.getParameter("email").strip();
+//		User user = new User(uid, uname, email);
+//		userService.update(user);
+//		return "redirect:/user/list";
+//	}
 	
 	/** ? */
 //	@GetMapping("/delete")
@@ -95,10 +84,11 @@ public class UserController {
 	/** 완전 삭제 */
 	@GetMapping("/delete/{uid}")
 	public String delete(@PathVariable String uid) {
-		service.delete(uid);
+		userService.delete(uid);
 		return "redirect:/user/list";
 	}
 	
+	/** 로그인 */
 	@GetMapping("/login")
 	public String loginForm() {
 		return "user/login";
@@ -108,11 +98,11 @@ public class UserController {
 	public String login(HttpServletRequest req, Model model) {
 		String uid = req.getParameter("uid");
 		String pwd = req.getParameter("pwd");
-		User u = service.get(uid);
-		int result = service.login(uid, pwd);
+		User u = userService.get(uid);
+		int result = userService.login(uid, pwd);
 		switch (result) {
 		case UserService.CORRECT_LOGIN:
-			return "redirect:/user/list";
+			return "redirect:/myPage";
 			
 		case UserService.WRONG_PASSWORD:
 			return "user/login";
