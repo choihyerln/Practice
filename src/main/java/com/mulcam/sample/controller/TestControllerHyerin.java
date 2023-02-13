@@ -11,7 +11,7 @@ import com.mulcam.sample.dto.MypageSumDTO;
 import com.mulcam.sample.service.CSuccessService;
 
 @Controller
-public class TestController {
+public class TestControllerHyerin {
 	@Autowired private CSuccessService css;
 
 	/** MyPage 테스트 */
