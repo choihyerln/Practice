@@ -11,10 +11,11 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" href="../css/news.css">
   </head>
-
   <body>
 	<div class="container">
 		<h2>간편 경제 뉴스</h2>
+        <p id="WhatTimeIsItNow" class="time"></p>
+        <br>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="box" data-aos="fade-up" data-aos-delay="100">
@@ -59,5 +60,9 @@
 <script src="../js/aos.js"></script>
 <script src="../js/owl.carousel.min.js"></script>
 <script src="../js/script.js"></script>
+<script src="../js/time.js"></script>
+<script language="javascript">
+    window.setTimeout('window.location.reload()', 60000);       // 1분마다 갱신
+</script>
 </body>
 </html>

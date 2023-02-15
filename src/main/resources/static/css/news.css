@@ -1,3 +1,4 @@
+/* 기사 제목 클릭 시 원문 보기 */
 a:link {
     color : black;
     text-decoration: none;
@@ -15,6 +16,7 @@ a:link {
     text-decoration: none;
   }
 
+/* 뉴스 카드 */
   .card {
     float: left;
   }
@@ -38,11 +40,19 @@ a:link {
     float: right;
   }
 
-  .box{
+  .box {
     padding:25px 15px;
     margin-bottom: 30px;
     background: #fff;
     color:#333;
     border-radius: 3px;
     box-shadow: 0 5px 30px -5px rgba(0,0,0,0.16);
+    height: 270px;
+  }
+
+/* 갱신 시간 */
+  .time {
+    color: darkgray;
+    font-weight: normal;
+    float: right;
   }

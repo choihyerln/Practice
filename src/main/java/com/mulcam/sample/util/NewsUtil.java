@@ -8,13 +8,18 @@ import java.net.URLEncoder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import com.mulcam.sample.entity.News;
+
+@Service
 public class NewsUtil {
 
-	public static String getNews(String query) throws Exception {
-
-		String clientId = "04m9x5h4CdVSrV89BrAz"; // 애플리케이션 클라이언트 아이디
-		String clientSecret = "rzPsDtaOVO"; // 애플리케이션 클라이언트 시크릿
+	@Value("${clientId}") private String clientId;
+	@Value("${clientSecret}") private String clientSecret;
+	
+	public News getNews(String query) throws Exception {
 
 		StringBuilder urlBuilder = new StringBuilder("https://openapi.naver.com/v1/search/news.json");
 		urlBuilder.append("?" + URLEncoder.encode("query", "UTF-8") + "=" + URLEncoder.encode(query, "UTF-8"));
@@ -27,39 +32,39 @@ public class NewsUtil {
 		con.setRequestProperty("X-Naver-Client-Id", clientId);
 		con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 
-        // Read API response
-        int responseCode = con.getResponseCode();
-        BufferedReader br;
-        if (responseCode == 200) {  // Success
-            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        } else {  // Error
-            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-        }
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        while ((inputLine = br.readLine()) != null) {
-            response.append(inputLine);
-        }
-        br.close();
-        
-     // Parse API response
-        JSONObject json = new JSONObject(response.toString());
-        JSONArray items = json.getJSONArray("items");
+		// Read API response
+		int responseCode = con.getResponseCode();
+		BufferedReader br;
+		if (responseCode == 200) { // Success
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		} else { // Error
+			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		}
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+		while ((inputLine = br.readLine()) != null) {
+			response.append(inputLine);
+		}
+		br.close();
 
-        JSONObject item = (JSONObject)items.get(0);
-        
-        String title = (String)item.get("title");
-		String link = (String)item.get("link");
-		String description = (String)item.get("description");
-		String pubDate = (String)item.get("pubDate");
+		// Parse API response
+		JSONObject json = new JSONObject(response.toString());
+		JSONArray items = json.getJSONArray("items");
+
+		JSONObject item = (JSONObject) items.get(0);
 		
-        System.out.println("PubDate: " + pubDate);
-        System.out.println("Title: " + title);
-        System.out.println("Description: " + description);
-        System.out.println("Link: " + link);
-        System.out.println();
-        
-        return response.toString();
-        
+		String title = (String) item.get("title");
+		String link = (String) item.get("link");
+		String description = (String) item.get("description");
+		String pubDate = (String) item.get("pubDate");
+		
+		News news = new News(title, link, description.replace("<b>", "").replace("</b>", ""), pubDate.substring(0,16), query);
+		
+		
+		System.out.println(news);
+		
+		return news;
+
 	}
+
 }
