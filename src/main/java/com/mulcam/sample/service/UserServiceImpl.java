@@ -11,49 +11,40 @@ import com.mulcam.sample.entity.User;
 import com.mulcam.sample.session.UserSession;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserServiceHyerin {
 	
 	@Autowired private UserDao userDao;
 	
-	@Resource
-	private UserSession userSession;
+	@Resource private UserSession userSession;
 
 	@Override
-	public User get(String uid) {
-		User user = userDao.get(uid);
+	public User get(String id) {
+		User user = userDao.get(id);
 		return user;
 	}
 
 	@Override
-	public void register(User u) {
+	public void join(User u) {
 		String cryptedPwd = BCrypt.hashpw(u.getPwd(), BCrypt.gensalt()); 
 		u.setPwd(cryptedPwd);
 		userDao.insert(u);
 	}
-
-	@Override
-	public void update(User u) {
-		userDao.update(u);
-	}
-	
-	@Override
-	public void delete(String uid) {
-		userDao.delete(uid);
-	}
 	
 	/** 로그인 */
 	@Override
-	public int login(String uid, String pwd) {
-		User u = userDao.get(uid);
-		if (u.getUid() != null) {		// uid 가 존재
+	public int login(String id, String pwd) {
+		System.out.println(id);
+		User u = userDao.get(id);
+		System.out.println(u);
+		if (u.getId() != null) {		// id 가 존재
 			if (BCrypt.checkpw(pwd, u.getPwd())) {
-				userSession.setUid(u.getUid());
-				userSession.setUname(u.getUname());
-				return UserService.CORRECT_LOGIN;
+				userSession.setId(u.getId());
+				userSession.setNickname(u.getNickname());
+				return UserServiceHyerin.CORRECT_LOGIN;
 			} else {
-				return UserService.WRONG_PASSWORD;
+				return UserServiceHyerin.WRONG_PASSWORD;
 			}
-		} 		// uid 가 없음
-		return UserService.UID_NOT_EXIST;
+		} 		// id 가 없음
+		return UserServiceHyerin.ID_NOT_EXIST;
 	}
 }

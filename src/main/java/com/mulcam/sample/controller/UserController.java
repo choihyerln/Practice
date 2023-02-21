@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mulcam.sample.entity.User;
-import com.mulcam.sample.service.UserService;
+import com.mulcam.sample.service.UserServiceHyerin;
 import com.mulcam.sample.session.UserSession;
 
 
@@ -20,72 +19,55 @@ import com.mulcam.sample.session.UserSession;
 @RequestMapping("/user")
 public class UserController {
 
-	@Resource
-	private UserSession userSession;
+	@Resource private UserSession userSession;
 
-	@Autowired
-	private UserService userService;
+	@Autowired private UserServiceHyerin userService;
 	
-	@RequestMapping("/detail/{uid}")
-	public String detail(@PathVariable String uid, Model model) {
-		User user = userService.get(uid);
-		System.out.println(user);
-		model.addAttribute("user", user);
-		return "redirect:/user/list";
+	@GetMapping("/join")
+	public String joinForm() {
+		return "user/join";
 	}
 	
-	@GetMapping("/register")
-	public String registerForm() {
-		return "user/register";
-	}
-	
-	@PostMapping("/register")
-	public String register(HttpServletRequest req) {
-		String uid = req.getParameter("uid").strip();
+	@PostMapping("/join")
+	public String join(HttpServletRequest req) {
+		String id = req.getParameter("id").strip();
 		String pwd = req.getParameter("pwd").strip();
 		String pwd2 = req.getParameter("pwd2").strip();
-		String uname = req.getParameter("uname").strip();
+		String nickname = req.getParameter("nickname").strip();
 		String email = req.getParameter("email").strip();
+		String tel = req.getParameter("tel").strip();
+		String strpay = req.getParameter("pay").strip();
+		int pay = 0;
+		if (strpay != null && !strpay.equals("")) {
+			pay = Integer.parseInt(strpay.replace(",", ""));	
+			System.out.println(pay);
+		}
+		String departures = req.getParameter("departures").strip();
+		String arrivals = req.getParameter("arrivals").strip();
+		String vehicles = req.getParameter("vehicles").strip();
+//		if (vehicles == "") {
+//			vehicles = null;
+//		}
 		
+		System.out.println(id);
+		 
 		if (pwd.equals(pwd2)) {
-			User u = new User(uid, pwd, uname, email);
-			userService.register(u);
+			User u = new User(0L, id, pwd, nickname, email, tel, pay, "", "", vehicles);
+//			u.setId(id);
+//			u.setPwd(pwd);
+//			u.setNickname(nickname);
+//			u.setEmail(email);
+//			u.setTel(tel);
+//			u.setPay(pay);
+//			u.setVehicles(vehicles);
+			
+			userService.join(u);
+			System.out.println(u);
 			return "redirect:/user/login";
 		} else {
 			System.out.println("패스워드 입력이 잘못되었습니다.");
-			return "redirect:/user/register";
+			return "redirect:/user/join";
 		}
-	}
-	
-	@GetMapping("/update/{uid}")
-	public String updateForm(@PathVariable String uid, Model model) {
-		User user = userService.get(uid);
-		model.addAttribute("user", user);
-		return "user/update";
-	}
-	
-//	@PostMapping("/update")
-//	public String update(HttpServletRequest req) {
-//		String uid = req.getParameter("uid").strip();
-//		String uname = req.getParameter("uname").strip();
-//		String email = req.getParameter("email").strip();
-//		User user = new User(uid, uname, email);
-//		userService.update(user);
-//		return "redirect:/user/list";
-//	}
-	
-	/** ? */
-//	@GetMapping("/delete")
-//	public String delete(@PathVariable String uid) {
-//		service.delete(uid);
-//		return "redirect:/user/list";
-//	}
-	
-	/** 완전 삭제 */
-	@GetMapping("/delete/{uid}")
-	public String delete(@PathVariable String uid) {
-		userService.delete(uid);
-		return "redirect:/user/list";
 	}
 	
 	/** 로그인 */
@@ -96,29 +78,29 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String login(HttpServletRequest req, Model model) {
-		String uid = req.getParameter("uid");
+		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
-		User u = userService.get(uid);
-		int result = userService.login(uid, pwd);
+		User u = userService.get(id);
+		int result = userService.login(id, pwd);
 		switch (result) {
-		case UserService.CORRECT_LOGIN:
+		case UserServiceHyerin.CORRECT_LOGIN:
 			return "redirect:/myPage";
 			
-		case UserService.WRONG_PASSWORD:
+		case UserServiceHyerin.WRONG_PASSWORD:
 			return "user/login";
 		
-		case UserService.UID_NOT_EXIST:
-			return "redirect:/user/register";
+		case UserServiceHyerin.ID_NOT_EXIST:
+			return "redirect:/user/join";
 		
 		default:
 			return "";
 		}
 	}
 	
-	@RequestMapping("/logout")
-	public String logout() {
-		userSession.setUid("");
-		userSession.setUname("");
-		return "redirect:/user/login";
-	}
+//	@RequestMapping("/logout")
+//	public String logout() {
+//		userSession.setUid("");
+//		userSession.setUname("");
+//		return "redirect:/user/login";
+//	}
 }

@@ -58,11 +58,8 @@ public class NewsUtil {
 		String description = (String) item.get("description");
 		String pubDate = (String) item.get("pubDate");
 		
-		News news = new News(title, link, description.replace("<b>", "").replace("</b>", ""), pubDate.substring(0,16), query);
-		
-		
-		System.out.println(news);
-		
+		News news = new News(title, link, description.replace("<b>", "").replace("</b>", "").replace("http*", ""), pubDate.substring(0,16), query);
+	
 		return news;
 
 	}

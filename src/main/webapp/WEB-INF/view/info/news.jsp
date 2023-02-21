@@ -24,9 +24,9 @@
 	<!-- TOP -->
 	
 	<div class="container">
-<!--<div class="container-nonaside-sm"> -->
-        <h2>간편 경제 뉴스</h2>
-        <p id="WhatTimeIsItNow" class="time"></p>
+	<!--<div class="container-nonaside-sm"> -->
+		<h2>간편 경제 뉴스</h2>
+        <p id="renewalTime" class="time"></p><p class="time">↻&nbsp;</p>
         <br>
 		<div class="row">
 			<c:forEach items="${newsList}" var="list">
@@ -43,6 +43,50 @@
 				</div>
 			</c:forEach>
 		</div>
+		
+        <h2 style="margin-top: 40px;">국가별 환율</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+				<div class="box" data-aos="fade-up" data-aos-delay="300">
+					<h6 class="card-date" id="usingFunction">
+						<span class="badge badge-secondary">${elist.get(2).todayCurUnit}</span>
+					</h6>
+					<h3 "card-title">&#127828; 미국</h3>
+					<p class="card-text">
+						매매 기준율 ${elist.get(2).todayDealBasR}<br>
+						전일대비 ${elist.get(2).subDeal}<br>
+						등락률 ${elist.get(2).fluctuationRate}%
+					</p>
+				</div>
+			</div>
+            <div class="col-md-4">
+				<div class="box" data-aos="fade-up" data-aos-delay="300">
+					<h6 class="card-date" id="usingFunction">
+						<span class="badge badge-secondary">${elist.get(1).todayCurUnit}</span>
+					</h6>
+					<h3 "card-title">&#127843; 일본</h3>
+					<p class="card-text">
+						매매 기준율 ${elist.get(1).todayDealBasR}<br>
+						전일대비 ${elist.get(1).subDeal}<br>
+						등락률 ${elist.get(1).fluctuationRate}%
+					</p>
+				</div>
+			</div>
+            <div class="col-md-4">
+				<div class="box" data-aos="fade-up" data-aos-delay="300">
+					<h6 class="card-date" id="usingFunction">
+						<span class="badge badge-secondary">${elist.get(0).todayCurUnit}</span>
+					</h6>
+					<h3 "card-title">🥖 유럽</h3>
+					<p class="card-text">
+						매매 기준율 ${elist.get(0).todayDealBasR}<br>
+						전일대비 ${elist.get(0).subDeal}<br>
+						등락률 ${elist.get(0).fluctuationRate}%
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script
@@ -52,7 +96,7 @@
 	<script src="/js/aos.js"></script>
 	<script src="/js/owl.carousel.min.js"></script>
 	<script src="/js/script.js"></script>
-    <script src="../js/time.js"></script>
+    <script src="/js/time.js"></script>
     <script language="javascript">
         window.setTimeout('window.location.reload()', 300000);       // 5분마다 갱신
     </script>

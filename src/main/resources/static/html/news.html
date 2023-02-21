@@ -8,13 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/aos.css">
 	<link rel="stylesheet" type="text/css" href="../css/owl.carousel.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/styleHyerin.css">
     <link rel="stylesheet" href="../css/news.css">
   </head>
   <body>
 	<div class="container">
 		<h2>간편 경제 뉴스</h2>
-        <p id="WhatTimeIsItNow" class="time"></p>
+        <p id="renewalTime" class="time"></p><p class="time">↻&nbsp;</p>
         <br>
 		<div class="row">
 			<div class="col-md-4">
@@ -48,6 +48,35 @@
 						<a href="${link}" class="card-title">${title}</a>
 					</h5>
 					<p class="card-text">${description}</p>
+				</div>
+			</div>
+        </div>
+
+        <h2 style="margin-top: 40px;">국가별 환율</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+				<div class="box" data-aos="fade-up" data-aos-delay="300">
+                    <span class="badge badge-secondary">USD</span>
+					<h6 class="card-date" id="today1"></h6>
+					<h3 "card-title">&#127828; 미국</h3>
+					<p class="card-text">매매 기준율<br>전일대비<br>등락률</p>
+				</div>
+			</div>
+            <div class="col-md-4">
+				<div class="box" data-aos="fade-up" data-aos-delay="300">
+                    <span class="badge badge-secondary">JPY</span>
+					<h6 class="card-date" id="today2"></h6>
+					<h3 "card-title">&#127843; 일본</h3>
+					<p class="card-text">매매 기준율<br>전일대비<br>등락률</p>
+				</div>
+			</div>
+            <div class="col-md-4">
+				<div class="box" data-aos="fade-up" data-aos-delay="300">
+                    <span class="badge badge-secondary">EUR</span>
+					<h6 class="card-date" id="today3">
+					<h3 "card-title">🥖 유럽</h3>
+					<p class="card-text">매매 기준율<br>전일대비<br>등락률</p>
 				</div>
 			</div>
 		</div>

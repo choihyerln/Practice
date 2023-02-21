@@ -8,28 +8,28 @@ import org.springframework.web.context.WebApplicationContext;
 @Component
 @Scope(value=WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserSession {
-	private String uid;
-	private String uname;
+	private String id;
+	private String nickname;
 	
 	@Override
 	public String toString() {
-		return "UserSession [uid=" + uid + ", uname=" + uname + "]";
+		return "UserSession [id=" + id + ", nickname=" + nickname + "]";
 	}
 
-	public String getUid() {
-		return uid;
+	public String getId() {
+		return id;
 	}
 
-	public void setUid(String uid) {
-		this.uid = uid;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getUname() {
-		return uname;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }

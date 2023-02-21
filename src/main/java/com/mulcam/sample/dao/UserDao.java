@@ -13,19 +13,16 @@ import com.mulcam.sample.entity.User;
 @Mapper
 public interface UserDao {
 	
-	@Select("select * from users")
+	@Select("select * from user")
 	List<User> getList();
 
-	@Select("select * from users where uid=#{uid}")
-	User get(String uid);
+	@Select("select * from user where id=#{id}")
+	User get(String id);
 	
-	@Insert("insert into users values(#{uid}, #{pwd}, #{uname}, #{email}, default, default)")
+	@Insert("insert into user values(default, #{id}, #{pwd}, #{nickname}, #{email}, #{tel}, #{pay}, #{departures}, #{arrivals}, #{vehicles})")
 	void insert(User u);
-	
-	@Update("UPDATE users SET pwd = #{pwd}, uname = #{uname}, email = #{email} WHERE uid = #{uid};")
-	void update(User u);
-	
-	@Delete("delete from users where uid=#{uid};")
-	void delete(String uid);
+		
+//	@Delete("delete from user where id=#{id};")
+//	void delete(String id);
 	
 }

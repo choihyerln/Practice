@@ -1,27 +1,27 @@
 package com.mulcam.sample.entity;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class User {
-	
-	public User() {
-	}
-	public User(String uid, String pwd, String uname, String email) {
-	}
-	private String uid;
+	// NOT NULL
+	private Long uid;			// pri
+	private String id;			// uni
 	private String pwd;
-	private String uname;
+	private String nickname;		// uni
 	private String email;
-	private LocalDate regDate;
-	private int isDeleted;
 	
+	// NULL
+	private String tel;
+	private int pay;
+	private String departures;
+	private String arrivals;
+	private String vehicles;
 }
