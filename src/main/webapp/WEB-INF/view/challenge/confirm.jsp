@@ -42,6 +42,5 @@
 		<button class="btn btn-gray choice"
 			onclick="location.href=#">취소</button>
 	</div>
-    <%@ include file="../common/bottom.jsp" %>
 </body>
 </html>

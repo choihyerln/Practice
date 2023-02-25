@@ -1,16 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="/css/bootstrap.css" />
+	<style>
+		.id_ok{
+		color:#008000;
+		display: none;
+		}
+		
+		.id_already{
+		color:#6A82FB; 
+		display: none;
+		}
+	</style>
 </head>
 <body>
-<div class="container" style="max-width: 500px">
-    <div class="py-5">
-
+    <div class="container" style="max-width: 400px">
+        <div class="py-5">
+    
             <!-- 간편 회원가입 -->
             <div class="text-center">
                 <h3>회원가입</h3>
@@ -25,101 +36,110 @@
                
                <!-- 일반 회원가입 폼 -->
             <form action="/user/join" method="post">
+                <legend>필수입력사항</legend>
+                
+                <!-- 이름 -->
+                <div>
+                    <label>* 이름</label>
+                    <br>
+                    <input class="form-control" value="" name="uname" placeholder="ex) 홍길동" required>
+                </div>
+                
                 <!-- 아이디 -->
                 <div>
-                    <label>아이디</label>
+                    <label>* 아이디</label>
                     <div>
-                        <label><input class="form-control" placeholder="아이디" name="id" value=""></label>
-                        <button name="idCheck" type="button">아이디 중복확인</button>
+	                    <label for="address2"></label> 
+						<input type="text" id="id" name="id" class="form-control" oninput="checkId()" placeholder="아이디" value="" required>
+						
+						<!-- id ajax 중복체크 -->
+						<span class="id_ok">사용 가능한 아이디입니다.</span>
+						<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
+						
                     </div>
                 </div>
                 
                 <!-- 비밀번호 -->
                 <div>
-                    <label>비밀번호</label>
+                    <label>* 비밀번호</label>
                     <p>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
-                    <label><input type="password" name="pwd" class="form-control" placeholder="비밀번호" value=""></label>
+                    <input type="password" name="pwd" class="form-control" placeholder="비밀번호" value="" required>
                    </div>
                 <div>
-                    <label class="css-fl3hsq euhjq6q2">비밀번호 확인</label>
+                    <label>* 비밀번호 확인</label>
                     <br>
-                    <label><input type="password" class="form-control" value="" name="pwd2" placeholder="비밀번호 확인"></label>
+                    <input type="password" class="form-control" value="" name="pwd2" placeholder="비밀번호 확인" required>
                 </div>
     
                 <!-- 닉네임 -->
                 <div>
-                    <label>닉네임</label>
+                    <label>* 닉네임</label>
                     <p>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</p>
-                    <label><input class="form-control" value="" name="nickname" placeholder="별명 (2~15자)"></label>
+                    <input class="form-control" value="" name="nickname" placeholder="별명 (2~15자)" required>
                 </div>
     
                 <!-- 이메일 -->
                 <div>
-                    <label>이메일</label>
+                    <label>* 이메일</label>
                     <div>
                         <span class="email-input__local">
-                            <label><input type="email" class="form-control" placeholder="이메일" name="email" value=""></label>
+                            <input type="email" class="form-control" placeholder="ex) savedot@mulcam.com (@ 포함기입)" required name="email" value="">
                         </span>
-                        <!-- <span class="email-input__separator" name="@">@</span>
-                        <span class="email-input__domain" name="email2" id="email2">
-                            <label><select class="form-control empty">
-                                <option value="" disabled selected>선택해주세요</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="hanmail.net">hanmail.net</option>
-                                <option value="daum.net">daum.net</option>
-                                <option value="gmail.com">gmail.com</option>
-                                <option value="nate.com">nate.com</option>
-                                <option value="hotmail.com">hotmail.com</option>
-                                <option value="outlook.com">outlook.com</option>
-                                <option value="icloud.com">icloud.com</option>
-                                <option value="1">직접입력</option>
-                            </select></label>
-                            <button class="email-input__domain__expand" aria-label="초기화" type="button" tabindex="-1"><svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;"><path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></button>
-                        </span> -->
                     </div>
                 </div>
-                    
-                    <!-- <input type="text" id="email_id" class="form_w200" value="" title="이메일 아이디" placeholder="이메일" maxlength="18" /> @ 
-                    <input type="text" id="email_domain" class="form_w200" value="" title="이메일 도메인" placeholder="이메일 도메인" maxlength="18"/> 
-                    <select class="select" title="이메일 도메인 주소 선택" onclick="setEmailDomain(this.value);return false;">
-                        <option value="">-선택-</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="hanmail.net">hanmail.net</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                        <option value="korea.com">korea.com</option>
-                        <option value="nate.com">nate.com</option>
-                        <option value="yahoo.com">yahoo.com</option>
-                    </select> -->
 
                 <!-- 선택 항목 -->
-    
+                <legend>선택입력사항</legend>
                 <!-- 연락처 -->
                 <div>
                     <label>연락처</label>
                     <br>
-                    <label><input class="form-control" value="" name="tel" placeholder="휴대전화번호를 입력해주세요 (- 제외)"></label>
+                    <input class="form-control" value="" name="tel" placeholder="ex) 01012345678">
                 </div>
-    
+                
+                <!-- 생년월일 -->
+                <div>
+                    <label>생년월일</label>
+                    <p>생년월일 8자리 숫자를 입력해주세요.</p>
+                    <input class="form-control" value="" name="birthDate" placeholder="ex) 19990101">
+                </div>
+
+                <!-- 주소 -->
+                <div>
+                    <label>주소</label>
+                    <br>
+                    <label><input class="form-control" name="addr" type="text" id="sample4_postcode" placeholder="우편번호"></label>
+                    <input type="button" onclick="" value="우편번호 찾기"><br>
+                </div>
+                <div>
+                    <label>도로명주소(자동입력)</label>
+                    <br>
+                    
+                    <input class="form-control" type="text" name="addr" id="sample4_roadAddress" placeholder="우편번호찾기를 이용해주세요" readonly><br>
+                    <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+                    <span id="guide" style="color:#999;display:none"></span>
+                    <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+                </div>
+                
                 <!-- 급여 -->
                 <div>
                     <label>월 급여 또는 용돈</label>
                     <br>
-                    <label><input class="form-control" value="" name="pay" placeholder="급여나 용돈을 입력해주세요"></label>
+                    <input class="form-control" value="" name="pay" placeholder="급여나 용돈을 입력해주세요">
                 </div>
     
                 <!-- 출발지 -->
                 <div>
                     <label>출발지</label>
                     <br>
-                    <label><input class="form-control" value="" name="departures" placeholder=""></label>
+                    <input class="form-control" value="" name="departures" placeholder="">
                 </div>
     
                 <!-- 목적지 -->
                 <div>
                     <label>목적지</label>
                     <br>
-                    <label><input class="form-control" value="" name="arrivals" placeholder=""></label>
+                    <input class="form-control" value="" name="arrivals" placeholder="">
                 </div>
     
                 <!-- 교통수단 -->
@@ -138,5 +158,6 @@
             </form>
         </div>
     </div> <!-- /container -->
-</body>
-</html>
+    <script src="/js/idCheck.js"></script>
+    </body>
+    </html>

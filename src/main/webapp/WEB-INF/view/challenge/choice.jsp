@@ -46,6 +46,5 @@
         </c:forEach>		
     </div>
     <!-- </form> -->
-    <%@ include file="../common/bottom.jsp" %>
 </body>
 </html>

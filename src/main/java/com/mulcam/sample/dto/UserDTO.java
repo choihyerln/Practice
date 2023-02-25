@@ -1,4 +1,4 @@
-package com.mulcam.sample.entity;
+package com.mulcam.sample.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class User {
+public class UserDTO {
 	private Long uid;			// pri
 	private String uname;			
 	private String id;			// uni
@@ -20,12 +20,20 @@ public class User {
 	
 	// NULL
 	private String tel;
+	private String telFormat;
 	private String birthDate;
 	private String addr;
 	private int pay;
 	private String departures;
 	private String arrivals;
 	private String vehicles;
-	private int isDeleted;		// not null
-	
+
+	public void setTel(String tel) {
+		this.tel = tel;
+		if(tel != null) {
+			String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
+			this.telFormat = tel.replaceAll(regEx, "$1-$2-$3");
+		}
+	}
+
 }
