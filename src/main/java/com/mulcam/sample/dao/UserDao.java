@@ -23,6 +23,10 @@ public interface UserDAO {
 	@Select("SELECT COUNT(id) FROM user WHERE id= #{id}")
 	String idCheck(String id);
 	
+	/** 닉네임 중복 검사 */
+	@Select("SELECT COUNT(nickname) FROM user WHERE nickname= #{nickname}")
+	String nicknameCheck(String nickname);
+	
 //	/** 회원정보 수정 */
 //	@Update("UPDATE user SET nickname=#{nickname}, email=#{email}, tel=#{tel}, birthDate=#{birthDate}, addr=#{addr}, pay=#{pay}, departures=#{departures}, arrivals=#{arrivals}, vehicles=#{vehicles}")
 //	void update(User u);

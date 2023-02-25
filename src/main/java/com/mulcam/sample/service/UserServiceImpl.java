@@ -33,6 +33,13 @@ public class UserServiceImpl implements UserService {
 		System.out.println("cnt: " + cnt);
 		return cnt;
 	}
+	
+	@Override
+	public String nicknameCheck(String nickname) {
+		String c = userDAO.nicknameCheck(nickname);
+		System.out.println(c);
+		return c;
+	}
 
 	/** 로그인 */
 	@Override

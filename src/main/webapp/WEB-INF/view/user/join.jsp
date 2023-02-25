@@ -7,12 +7,22 @@
 <title>회원가입</title>
 <link rel="stylesheet" href="/css/bootstrap.css" />
 	<style>
-		.id_ok{
+		.id_ok {
 		color:#008000;
 		display: none;
 		}
 		
-		.id_already{
+		.id_already {
+		color:#6A82FB; 
+		display: none;
+		}
+		
+		.nickname_ok {
+		color:#008000;
+		display: none;
+		}
+		
+		.nickname_already {
 		color:#6A82FB; 
 		display: none;
 		}
@@ -48,15 +58,11 @@
                 <!-- 아이디 -->
                 <div>
                     <label>* 아이디</label>
-                    <div>
-	                    <label for="address2"></label> 
-						<input type="text" id="id" name="id" class="form-control" oninput="checkId()" placeholder="아이디" value="" required>
-						
-						<!-- id ajax 중복체크 -->
-						<span class="id_ok">사용 가능한 아이디입니다.</span>
-						<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
-						
-                    </div>
+                    <p>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</p>
+					<input type="text" id="id" name="id" class="form-control" oninput="checkId()" placeholder="아이디" value="" required>
+					<!-- id ajax 중복체크 -->
+					<span class="id_ok">사용 가능한 아이디입니다.</span>
+					<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
                 </div>
                 
                 <!-- 비밀번호 -->
@@ -75,7 +81,10 @@
                 <div>
                     <label>* 닉네임</label>
                     <p>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</p>
-                    <input class="form-control" value="" name="nickname" placeholder="별명 (2~15자)" required>
+					<input type="text" id="nickname" name="nickname" class="form-control" oninput="checkNickname()" placeholder="별명" value="" required>
+					<!-- nickname ajax 중복체크 -->
+					<span class="nickname_ok">사용 가능한 닉네임입니다.</span>
+					<span class="nickname_already">누군가 이 닉네임을 사용하고 있어요.</span>
                 </div>
     
                 <!-- 이메일 -->
@@ -158,6 +167,8 @@
             </form>
         </div>
     </div> <!-- /container -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="/js/idCheck.js"></script>
+    <script src="/js/nicknameCheck.js"></script>
     </body>
     </html>

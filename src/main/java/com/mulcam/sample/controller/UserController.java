@@ -59,13 +59,22 @@ public class UserController {
 		}
 	}
 	
-	/** 아이디, 닉네임 중복확인 */
+	/** 아이디 중복확인 */
 	@PostMapping("/join/idCheck")
 	@ResponseBody
 	public String idCheck(@RequestParam("id") String id) {
 		String cnt = userService.idCheck(id);
 		System.out.println(cnt);
 		return cnt;
+	}
+	
+	/** 닉네임 중복확인 */
+	@PostMapping("/join/nicknameCheck")
+	@ResponseBody
+	public String nicknameCheck(@RequestParam("nickname") String nickname) {
+		String c = userService.nicknameCheck(nickname);
+		System.out.println(c);
+		return c;
 	}
 	   
 	/** 로그인 */

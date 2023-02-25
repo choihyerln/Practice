@@ -2,7 +2,7 @@ window.onload = function checkId(){
 	
     var id = $('#id').val(); 								//id값이 "id"인 입력란의 값을 저장
     $.ajax({
-        url:'./idCheck', 								//Controller에서 요청 받을 주소
+        url:'/user/join/idCheck', 								//Controller에서 요청 받을 주소
         type:'post', 										//POST 방식으로 전달
         data:{id:id},
         success:function(cnt){ 								//컨트롤러에서 넘어온 cnt값을 받는다 
