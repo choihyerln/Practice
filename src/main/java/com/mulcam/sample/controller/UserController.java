@@ -62,8 +62,8 @@ public class UserController {
 	/** 아이디, 닉네임 중복확인 */
 	@PostMapping("/join/idCheck")
 	@ResponseBody
-	public int idCheck(@RequestParam("id") String id) {
-		int cnt = userService.idCheck(id);
+	public String idCheck(@RequestParam("id") String id) {
+		String cnt = userService.idCheck(id);
 		System.out.println(cnt);
 		return cnt;
 	}

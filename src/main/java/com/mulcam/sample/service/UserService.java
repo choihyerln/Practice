@@ -21,7 +21,7 @@ public interface UserService {
 	void join(User user);
 
 	/** 아이디 중복 검사 */
-	int idCheck(String id);
+	String idCheck(String id);
 
 //	/** 회원정보 수정 */
 //	void update(User user);

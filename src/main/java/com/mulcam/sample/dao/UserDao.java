@@ -1,8 +1,5 @@
 package com.mulcam.sample.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -24,7 +21,7 @@ public interface UserDAO {
 	
 	/** 아이디 중복 검사 */
 	@Select("SELECT COUNT(id) FROM user WHERE id= #{id}")
-	int idCheck(String id);
+	String idCheck(String id);
 	
 //	/** 회원정보 수정 */
 //	@Update("UPDATE user SET nickname=#{nickname}, email=#{email}, tel=#{tel}, birthDate=#{birthDate}, addr=#{addr}, pay=#{pay}, departures=#{departures}, arrivals=#{arrivals}, vehicles=#{vehicles}")

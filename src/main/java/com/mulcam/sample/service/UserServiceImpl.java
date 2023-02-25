@@ -28,13 +28,12 @@ public class UserServiceImpl implements UserService {
 	
 	/** 아이디 중복 검사 */
 	@Override
-	public int idCheck(String id) {
-		int cnt = userDAO.idCheck(id);
+	public String idCheck(String id) {
+		String cnt = userDAO.idCheck(id);
 		System.out.println("cnt: " + cnt);
 		return cnt;
 	}
 
-	
 	/** 로그인 */
 	@Override
 	public int login(UserDTO user, HttpSession session) {					// 입력한 유저
