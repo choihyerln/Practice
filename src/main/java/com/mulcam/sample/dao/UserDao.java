@@ -29,10 +29,10 @@ public interface UserDAO {
 	
 	/** 회원정보 수정 */
 	// 비밀번호 수정했을 경우
-	@Update("UPDATE user SET pwd=#{pwd} nickname=#{nickname}, email=#{email}, #{tel}, #{birthDate}, #{addr}, #{pay}, #{departures}, #{arrivals}, #{vehicles}, #{bank}, #{accountNumber}, #{code} WHERE uid=#{uid})")
+	@Update("UPDATE user SET pwd=#{pwd}, nickname=#{nickname}, email=#{email}, tel=#{tel}, birthDate=#{birthDate}, addr=#{addr}, pay=#{pay}, departures=#{departures}, arrivals=#{arrivals}, vehicles=#{vehicles}, bank=#{bank}, accountNumber=#{accountNumber}, code=#{code} WHERE uid=#{uid})")
 	void update(User u);
 	// 비밀번호 수정하지 않았을 경우
-	@Update("UPDATE user SET nickname=#{nickname}, email=#{email}, #{tel}, #{birthDate}, #{addr}, #{pay}, #{departures}, #{arrivals}, #{vehicles}, #{bank}, #{accountNumber}, #{code} WHERE uid=#{uid})")
+	@Update("UPDATE user SET nickname=#{nickname}, email=#{email}, tel=#{tel}, birthDate=#{birthDate}, addr=#{addr}, pay=#{pay}, departures=#{departures}, arrivals=#{arrivals}, vehicles=#{vehicles}, bank=#{bank}, accountNumber=#{accountNumber}, code=#{code} WHERE uid=#{uid})")
 	void updateWithoutPwd(User u);
 	
 	/** 회원 탈퇴 */
