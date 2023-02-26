@@ -30,7 +30,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/join")
-	public String join(HttpServletRequest req) {
+	public String join(HttpServletRequest req, Model model) {
 		String uname = req.getParameter("uname").strip();
 		String id = req.getParameter("id").strip();
 		String pwd = req.getParameter("pwd").strip();
@@ -48,14 +48,18 @@ public class UserController {
 		String departures = req.getParameter("departures").strip();
 		String arrivals = req.getParameter("arrivals").strip();
 		String vehicles = req.getParameter("vehicles").strip();
+		String bank = req.getParameter("bank").strip();
+		String accountNumber = req.getParameter("accountNumber").strip();
+		String code = req.getParameter("code").strip();
 		 
 		if (pwd.equals(pwd2)) {
-			User user = new User(0L, uname, id, pwd, nickname, email, tel, birthDate, addr, pay, departures, arrivals, vehicles, 0);
+			User user = new User(0L, uname, id, pwd, nickname, email, tel, birthDate, addr, pay, departures, arrivals, vehicles, 0, bank, accountNumber, code);
 			userService.join(user);
 			return "redirect:/user/login";
 		} else {
-			System.out.println("패스워드 입력이 잘못되었습니다.");
-			return "redirect:/user/join";
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			model.addAttribute("url", "/user/join");
+			return "user/alertMsg";
 		}
 	}
 	
@@ -63,18 +67,16 @@ public class UserController {
 	@PostMapping("/join/idCheck")
 	@ResponseBody
 	public String idCheck(@RequestParam("id") String id) {
-		String cnt = userService.idCheck(id);
-		System.out.println(cnt);
-		return cnt;
+		int cnt = userService.idCheck(id);
+		return cnt + "";
 	}
 	
 	/** 닉네임 중복확인 */
 	@PostMapping("/join/nicknameCheck")
 	@ResponseBody
 	public String nicknameCheck(@RequestParam("nickname") String nickname) {
-		String c = userService.nicknameCheck(nickname);
-		System.out.println(c);
-		return c;
+		int c = userService.nicknameCheck(nickname);
+		return c + "";
 	}
 	   
 	/** 로그인 */
@@ -105,32 +107,85 @@ public class UserController {
 			return "user/alertMsg";
 	}
 	
-//	/** 회원정보 수정 */
-//	@GetMapping("/update/{uid}")
-//	public String updateForm(@PathVariable Long uid, Model model) {
-//		UserDTO userDTO = userService.findByUid(uid);
-//		model.addAttribute("user", userDTO);
-//		return "user/update";
-//	}
-//	@PostMapping("/update")
-//	public String update(HttpServletRequest req) {
-//		String nickname = req.getParameter("nickname").strip();
-//		String email = req.getParameter("email").strip();
-//		String tel = req.getParameter("tel").strip();
-//		String birthDate = req.getParameter("birthDate").strip();
-//		String addr = req.getParameter("addr").strip();
-//		String strpay = req.getParameter("pay").strip();
-//		int pay = 0;
-//		if (strpay != null && !strpay.equals("")) {
-//			pay = Integer.parseInt(strpay.replace(",", ""));
-//		}
-//		String departures = req.getParameter("departures").strip();
-//		String arrivals = req.getParameter("arrivals").strip();
-//		String vehicles = req.getParameter("vehicles").strip();
-//		User user = new User(nickname, email, tel, birthDate, addr, pay, departures, arrivals, vehicles);
-//		userService.update(user);
-//		return "redirect:/user/list";
-//	}
+	/** 회원정보 수정 */
+	
+	//수정하고자 하는 정보를 불러오는 메소드
+	@GetMapping("/update/{uid}")
+	public String updateForm(@PathVariable Long uid, Model model) {
+		UserDTO userDTO = userService.findByUid(uid);
+		model.addAttribute("user", userDTO);
+		return "user/profile";
+	}
+	
+	@PostMapping("/update")
+	public String update(HttpServletRequest req, Model model) {
+		String uname = req.getParameter("uname").strip();
+		String id = req.getParameter("id").strip();
+		String pwd = req.getParameter("pwd").strip();
+		String pwd2 = req.getParameter("pwd2").strip();
+		String nickname = req.getParameter("nickname").strip();
+		String email = req.getParameter("email").strip();
+		String tel = req.getParameter("tel").strip();
+		String birthDate = req.getParameter("birthDate").strip();
+		String addr = req.getParameter("addr").strip();
+		String strpay = req.getParameter("pay").strip();
+		int pay = 0;
+		if (strpay != null && !strpay.equals("")) {
+			pay = Integer.parseInt(strpay.replace(",", ""));
+		}
+		String departures = req.getParameter("departures").strip();
+		String arrivals = req.getParameter("arrivals").strip();
+		String vehicles = req.getParameter("vehicles").strip();
+		String bank = req.getParameter("bank").strip();
+		String accountNumber = req.getParameter("accountNumber").strip();
+		String code = req.getParameter("code").strip();
+		HttpSession session = req.getSession();
+		User user;
+		
+		if (pwd == null || pwd.equals("")) {		// 비밀번호를 입력하지 않은 경우
+			user = new User(0L, uname, id, pwd, nickname, email, tel, birthDate, addr, pay, departures, arrivals, vehicles, 0, bank, accountNumber, code);
+			userService.update(user, "");
+
+			session.setAttribute("nickname", nickname);
+			session.setAttribute("email", email);
+			session.setAttribute("tel", tel);
+			session.setAttribute("birthDate", birthDate);
+			session.setAttribute("addr", addr);
+			session.setAttribute("pay", pay);
+			session.setAttribute("departures", departures);
+			session.setAttribute("arrivals", arrivals);
+			session.setAttribute("vehicles", vehicles);
+			session.setAttribute("bank", bank);
+			session.setAttribute("accountNumber", accountNumber);
+			session.setAttribute("code", code);
+			return "redirect:/mypage/main";
+		}
+		 
+		else if (pwd.equals(pwd2)) {				// 비밀번호가 올바른 경우
+			user = new User(0L, uname, id, pwd, nickname, email, tel, birthDate, addr, pay, departures, arrivals, vehicles, 0, bank, accountNumber, code);
+			userService.update(user, pwd);
+			
+			session.setAttribute("nickname", nickname);
+			session.setAttribute("email", email);
+			session.setAttribute("tel", tel);
+			session.setAttribute("birthDate", birthDate);
+			session.setAttribute("addr", addr);
+			session.setAttribute("pay", pay);
+			session.setAttribute("departures", departures);
+			session.setAttribute("arrivals", arrivals);
+			session.setAttribute("vehicles", vehicles);
+			session.setAttribute("bank", bank);
+			session.setAttribute("accountNumber", accountNumber);
+			session.setAttribute("code", code);
+			return "redirect:/mypage/main";
+		} 
+		
+		else {										// 비밀번호를 잘못 입력한 경우
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			model.addAttribute("url", "/user/update/{uid}");
+			return "user/alertMsg";
+		}
+	}
 	
 	/** 로그아웃 */
 	@GetMapping("/logout")

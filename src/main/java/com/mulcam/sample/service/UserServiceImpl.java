@@ -28,19 +28,18 @@ public class UserServiceImpl implements UserService {
 	
 	/** 아이디 중복 검사 */
 	@Override
-	public String idCheck(String id) {
-		String cnt = userDAO.idCheck(id);
-		System.out.println("cnt: " + cnt);
+	public int idCheck(String id) {
+		int cnt = userDAO.idCheck(id);
 		return cnt;
 	}
 	
+	/** 닉네임 중복 검사 */
 	@Override
-	public String nicknameCheck(String nickname) {
-		String c = userDAO.nicknameCheck(nickname);
-		System.out.println(c);
+	public int nicknameCheck(String nickname) {
+		int c = userDAO.nicknameCheck(nickname);
 		return c;
 	}
-
+	
 	/** 로그인 */
 	@Override
 	public int login(UserDTO user, HttpSession session) {					// 입력한 유저
@@ -78,11 +77,16 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 	
-//	/** 회원정보 수정 */
-//	@Override
-//	public void update(User user) {
-//		userDAO.insert(user);
-//	}
+	/** 회원정보 수정 */
+	@Override
+	public void update(User user, String newPwd) {
+		if (newPwd.length() > 0) {
+			String cryptedPwd = BCrypt.hashpw(newPwd, BCrypt.gensalt());
+			user.setPwd(cryptedPwd);
+			userDAO.update(user);
+		} else
+			userDAO.updateWithoutPwd(user);
+	}
 	
 	/** 회원 탈퇴 */
 	@Override

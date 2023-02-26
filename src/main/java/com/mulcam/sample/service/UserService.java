@@ -21,11 +21,11 @@ public interface UserService {
 	void join(User user);
 
 	/** 아이디, 닉네임 중복 검사 */
-	String idCheck(String id);
-	String nicknameCheck(String nickname);
+	int idCheck(String id);
+	int nicknameCheck(String nickname);
 
-//	/** 회원정보 수정 */
-//	void update(User user);
+	/** 회원정보 수정 */
+	void update(User user, String newPwd);
 
 	/** 회원탈퇴 */
 	void delete(String id);

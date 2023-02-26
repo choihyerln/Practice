@@ -27,5 +27,8 @@ public class User {
 	private String arrivals;
 	private String vehicles;
 	private int isDeleted;		// not null
+	private String bank;
+	private String accountNumber;
+	private String code;
 	
 }

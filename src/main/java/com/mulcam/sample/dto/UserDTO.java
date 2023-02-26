@@ -27,6 +27,9 @@ public class UserDTO {
 	private String departures;
 	private String arrivals;
 	private String vehicles;
+	private String bank;
+	private String accountNumber;
+	private String code;
 
 	public void setTel(String tel) {
 		this.tel = tel;
